@@ -14,7 +14,7 @@ public class OrderController : ControllerBase
         _httpClientFactory = httpClientFactory;
     }
 
-    [HttpPost("buy-coffee")]
+  [HttpPost("buy-coffee")]
     public async Task<IActionResult> BuyCoffee()
     {
         var client = _httpClientFactory.CreateClient("BankService");
@@ -31,6 +31,12 @@ public class OrderController : ControllerBase
             }
 
             return StatusCode(500, "Bank is currently down. Please try again later.");
+        }
+        catch (Polly.CircuitBreaker.BrokenCircuitException)
+        {
+            // ΑΥΤΟ ΕΙΝΑΙ ΤΟ CIRCUIT BREAKER! 
+            // Το σύστημα ξέρει ότι η τράπεζα έχει πέσει και δεν προσπαθεί καν.
+            return StatusCode(503, "CIRCUIT BREAKER OPEN: Το σύστημα πληρωμών της Τράπεζας είναι εκτός λειτουργίας. Παρακαλώ περιμένετε λίγα δευτερόλεπτα.");
         }
         catch (Exception ex)
         {
