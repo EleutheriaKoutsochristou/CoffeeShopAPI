@@ -1,0 +1,21 @@
+## Ignore build outputs
+bin/
+obj/
+
+# Visual Studio / Rider / VS Code
+.vs/
+*.user
+*.suo
+.idea/
+.vscode/
+
+# NuGet
+*.nupkg
+/packages/
+
+# Logs
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store
