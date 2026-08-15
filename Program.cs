@@ -7,6 +7,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// handledEventsAllowedBeforeBreaking: internal counter. When the policy observes 3 handled failures it opens the circuit.
+// onBreak hook: invoked when the circuit opens; it does not increment the counter — it’s a notification you can log/act on.
+// onReset / onHalfOpen hooks: invoked when the circuit resets or moves to half-open for a trial call.
+
+
 // --- PATTERN 1: RETRY PATTERN ---
 var retryPolicy = HttpPolicyExtensions
     .HandleTransientHttpError()
