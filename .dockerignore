@@ -1,0 +1,11 @@
+**/bin
+**/obj
+**/.git
+StaticContentUploader/bin
+StaticContentUploader/obj
+azurite
+azurite/**
+*.md
+*.log
+.vscode
+.idea

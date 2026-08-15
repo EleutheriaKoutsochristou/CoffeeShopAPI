@@ -21,3 +21,22 @@ Thumbs.db
 .DS_Store
 __azurite_db_*.json
 AzuriteConfig/
+
+# Additional ignores
+# Node/npm
+node_modules/
+package-lock.json
+
+# Docker/Azurite local data
+azurite/
+azurite/**
+
+# Runtime / temp
+*.tmp
+
+# Secrets / env
+.env
+.env.local
+secrets.json
+local.settings.json
+
