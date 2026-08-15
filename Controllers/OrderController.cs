@@ -23,7 +23,7 @@ public class OrderController : ControllerBase
         {
             // We call "503" to intentionally trigger a "Service Unavailable" error.
             // Watch the terminal when you run this: Polly will intercept and retry!
-            var response = await client.GetAsync("503");
+            var response = await client.GetAsync("");
 
             if (response.IsSuccessStatusCode)
             {

@@ -27,7 +27,7 @@ var combinedPolicy = Policy.WrapAsync(circuitBreakerPolicy, retryPolicy);
 
 builder.Services.AddHttpClient("BankService", client =>
 {
-    client.BaseAddress = new Uri("https://httpstat.us/"); 
+    client.BaseAddress = new Uri("http://localhost:9999/");
 })
 .AddPolicyHandler(combinedPolicy);
 
