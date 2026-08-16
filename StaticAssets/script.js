@@ -4,6 +4,7 @@ const buyCoffeeBtn = document.getElementById('buyCoffeeBtn')
 const orderStatus = document.getElementById('orderStatus')
 
 const API_URL = 'http://localhost:5001/api'
+let selectedCoffee = null
 
 async function loadMenu() {
   try {
@@ -25,11 +26,26 @@ async function loadMenu() {
         <h3>${item.name}</h3>
         <p>${item.description}</p>
         <span class="price">€${Number(item.price).toFixed(2)}</span>
+        <button class="select-btn" data-name="${item.name}">Select</button>
       `
+
+      const selectButton = card.querySelector('.select-btn')
+      selectButton.addEventListener('click', () => {
+        selectedCoffee = item.name
+        document.querySelectorAll('.select-btn').forEach((btn) => {
+          btn.classList.remove('selected')
+        })
+        selectButton.classList.add('selected')
+        orderStatus.textContent = `${item.name} selected. Ready to order.`
+      })
+
       menuContainer.appendChild(card)
     })
 
-    orderStatus.textContent = 'Menu loaded successfully.'
+    if (!selectedCoffee && menu.length > 0) {
+      selectedCoffee = menu[0].name
+      orderStatus.textContent = `${selectedCoffee} selected by default. Ready to order.`
+    }
   } catch (error) {
     orderStatus.textContent =
       'Could not load menu. Make sure the API is running.'
@@ -39,6 +55,11 @@ async function loadMenu() {
 
 async function buyCoffee() {
   try {
+    if (!selectedCoffee) {
+      orderStatus.textContent = 'Please select a coffee first.'
+      return
+    }
+
     orderStatus.textContent = 'Processing payment...'
 
     const response = await fetch(`${API_URL}/order/buy-coffee`, {
@@ -46,6 +67,7 @@ async function buyCoffee() {
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ coffeeName: selectedCoffee }),
     })
 
     const text = await response.text()

@@ -14,10 +14,15 @@ public class OrderController : ControllerBase
         _httpClientFactory = httpClientFactory;
     }
 
-  [HttpPost("buy-coffee")]
-    public async Task<IActionResult> BuyCoffee()
+    [HttpPost("buy-coffee")]
+    public async Task<IActionResult> BuyCoffee([FromBody] OrderRequest request)
     {
         var client = _httpClientFactory.CreateClient("BankService");
+
+        if (string.IsNullOrWhiteSpace(request?.CoffeeName))
+        {
+            return BadRequest("Please select a coffee before ordering.");
+        }
 
         try
         {
@@ -27,7 +32,7 @@ public class OrderController : ControllerBase
 
             if (response.IsSuccessStatusCode)
             {
-                return Ok("Payment successful! Here is your coffee ☕");
+                return Ok($"Payment successful! Here is your {request.CoffeeName} ☕");
             }
 
             return StatusCode(500, "Bank is currently down. Please try again later.");

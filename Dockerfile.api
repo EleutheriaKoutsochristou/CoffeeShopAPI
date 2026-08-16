@@ -5,6 +5,7 @@ WORKDIR /src
 COPY CoffeeShopAPI.csproj ./
 COPY Program.cs ./
 COPY CoffeeMenuItem.cs ./
+COPY OrderRequest.cs ./
 COPY appsettings.json ./
 COPY appsettings.Development.json ./
 COPY Controllers ./Controllers
