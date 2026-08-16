@@ -4,7 +4,7 @@ WORKDIR /src
 # Copy only API project files to avoid including other projects in the repo
 COPY CoffeeShopAPI.csproj ./
 COPY Program.cs ./
-COPY WeatherForecast.cs ./
+COPY CoffeeMenuItem.cs ./
 COPY appsettings.json ./
 COPY appsettings.Development.json ./
 COPY Controllers ./Controllers

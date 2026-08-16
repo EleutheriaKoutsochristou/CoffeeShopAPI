@@ -3,12 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CoffeeShop - Static</title>
+    <title>Bean & Brew</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Welcome to CoffeeShop (Static Content)</h1>
-    <p>This is a static page served from Blob Storage (Azurite emulator example).</p>
-    <img src="logo.png" alt="Logo" />
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Coffee House</p>
+        <h1>Bean & Brew</h1>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Today's menu</h2>
+          <button id="refreshBtn">Refresh menu</button>
+        </div>
+        <div id="menuContainer" class="menu-grid"></div>
+      </section>
+
+      <section class="panel actions">
+        <h2>Order</h2>
+        <button id="buyCoffeeBtn" class="primary-btn">Buy coffee</button>
+        <div id="orderStatus" class="status-box">Waiting for action...</div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
   </body>
 </html>
