@@ -9,6 +9,7 @@ COPY OrderRequest.cs ./
 COPY appsettings.json ./
 COPY appsettings.Development.json ./
 COPY Controllers ./Controllers
+COPY Services ./Services
 COPY Properties ./Properties
 
 RUN dotnet restore CoffeeShopAPI.csproj

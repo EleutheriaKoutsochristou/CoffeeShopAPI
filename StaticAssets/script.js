@@ -24,9 +24,14 @@ async function loadMenu() {
       card.className = 'menu-item'
       card.innerHTML = `
         <h3>${item.name}</h3>
+        <div class="image-wrap">
+          ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.name}" class="menu-image"/>` : `<div class="image-placeholder">No image</div>`}
+        </div>
         <p>${item.description}</p>
         <span class="price">€${Number(item.price).toFixed(2)}</span>
-        <button class="select-btn" data-name="${item.name}">Select</button>
+        <div class="actions-row">
+          <button class="select-btn" data-name="${item.name}">Select</button>
+        </div>
       `
 
       const selectButton = card.querySelector('.select-btn')

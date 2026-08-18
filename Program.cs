@@ -3,6 +3,28 @@ using Polly.Extensions.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// configure Azure Blob settings (set via appsettings or environment variables)
+// Accept either hierarchical key `AzureStorage:ConnectionString` or legacy env var `AZURE_STORAGE_CONNECTION_STRING`.
+var azureConn = builder.Configuration["AzureStorage:ConnectionString"]
+                ?? builder.Configuration["AzureStorage__ConnectionString"]
+                ?? builder.Configuration["AZURE_STORAGE_CONNECTION_STRING"];
+var azureContainer = builder.Configuration["AzureStorage:ContainerName"] ?? builder.Configuration["AzureStorage__ContainerName"] ?? "coffeeimages";
+if (!string.IsNullOrEmpty(azureConn))
+{
+    try
+    {
+        // Try creating the blob service now; if the connection string is malformed the SDK
+        // may throw. Catch and continue so the API can still run without blob storage.
+        var blobSvc = new CoffeeShopAPI.Services.AzureBlobService(azureConn, azureContainer);
+        builder.Services.AddSingleton<CoffeeShopAPI.Services.IAzureBlobService>(blobSvc);
+    }
+    catch (Exception ex)
+    {
+        // Log to console; container will continue without blob support.
+        Console.WriteLine($"AzureBlobService not registered: {ex.Message}");
+    }
+}
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
