@@ -41,7 +41,7 @@ public class OrderController : ControllerBase
         {
             // ΑΥΤΟ ΕΙΝΑΙ ΤΟ CIRCUIT BREAKER! 
             // Το σύστημα ξέρει ότι η τράπεζα έχει πέσει και δεν προσπαθεί καν.
-            return StatusCode(503, "CIRCUIT BREAKER OPEN: Το σύστημα πληρωμών της Τράπεζας είναι εκτός λειτουργίας. Παρακαλώ περιμένετε λίγα δευτερόλεπτα.");
+            return StatusCode(503, "CIRCUIT BREAKER OPEN: Το σύστημα πληρωμών είναι εκτός λειτουργίας. Παρακαλώ περιμένετε λίγα δευτερόλεπτα.");
         }
         catch (Exception ex)
         {
