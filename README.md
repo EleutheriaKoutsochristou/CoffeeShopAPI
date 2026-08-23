@@ -17,7 +17,7 @@ docker compose up --build
 
 Then open:
 
-- Frontend: http://localhost:8080
+- Frontend: http://localhost:8081
 - API: http://localhost:5001
 - Swagger: http://localhost:5001/swagger
 - Azurite: http://localhost:10000
